@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lake Waikare</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<nav>
+  <div class="logo">
+    Lake Waikare
+  </div>
+  <div class="nav-links">
+    <a href="#" class="active">Home</a>
+    <a href="#">Quiz</a>
+    <a href="#">Collection</a>
+    <a href="#">Profile</a>
+  </div>
+</nav>
+
+<!-- Left side: GIS and IMG info -->
+<div class="container">
+  <div class="sidebar">
+
+    <!-- GIS information -->
+    <div class="gis-info">
+      <h3>Location Data</h3>
+      <p>Click on a point of interest on the map to view detailed information.</p>
+      <div class="gis-data">
+        <!-- will show some info when a map point is clicked -->
+      </div>
+    </div>
+
+    <!-- Image information -->
+    <div class="photo-gallery">
+      <h3>Photo Gallery</h3>
+      <p>Images related to the selected location will appear here.</p>
+      <div class="carousel-container">
+        <div class="carousel-slides">
+          <!--will show a dynamical slides when a map point is clicked -->
+        </div>
+        <div class="carousel-indicators">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right side: MAP and POINTS -->
+  <div class="map-container">
+    <div class="map">
+      <img src="/img/map.png" alt="Map of Lake Waikare" class="map-image">
+      <div class="map-overlay">
+        <!-- some positioned absolutely points -->
+        <div class="map-point" style="top: 30%; left: 40%;" data-id="point1"></div>
+        <div class="map-point" style="top: 50%; left: 60%;" data-id="point2"></div>
+        <div class="map-point" style="top: 70%; left: 30%;" data-id="point3"></div>
+        <div class="map-point" style="top: 40%; left: 70%;" data-id="point4"></div>
+      </div>
+    </div>
+
+    <!-- Location information display -->
+    <div class="location-info">
+      <div class="info-header">
+        <h2 class="location-title">Location Name</h2>
+        <button class="close-info">&times;</button>
+      </div>
+      <p class="location-description">
+        This is where the detailed information about the selected location will be displayed.
+        It can include geographical data, historical significance, ecological information, and more.
+      </p>
+      <button class="next-btn">Continue Learning</button>
+    </div>
+  </div>
+</div>
+
+<!-- Quiz modal -->
+<div class="modal-overlay">
+  <div class="modal">
+    <h3>Test Your Knowledge</h3>
+    <div class="quiz-question">
+      <p>Which of the following statements about Lake Waikare is true?</p>
+    </div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-option="A">This is the first option</div>
+      <div class="quiz-option" data-option="B">This is the second option</div>
+      <div class="quiz-option" data-option="C">This is the third option</div>
+      <div class="quiz-option" data-option="D">This is the fourth option</div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn skip-btn">Skip & Explore more</button>
+      <button class="modal-btn submit-btn">Submit Answer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Quiz modal -->
+<div class="modal-overlay">
+  <div class="modal">
+    <h3>Test Your Knowledge</h3>
+    <div class="quiz-question">
+      <p>Which of the following statements about Lake Waikare is true?</p>
+    </div>
+    <div class="quiz-options">
+      <div class="quiz-option" data-option="A">A. This is the first option</div>
+      <div class="quiz-option" data-option="B">B. This is the second option</div>
+      <div class="quiz-option" data-option="C">C. This is the third option</div>
+      <div class="quiz-option" data-option="D">D. This is the fourth option</div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn skip-btn">Skip & Explore more</button>
+      <button class="modal-btn submit-btn">Submit Answer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // some points data (just sample, not real)
+  const pointData = {
+    point1: {
+      title: "North Shore Wetlands",
+      description: "The North Shore wetlands of Lake Waikare are home to various native bird species and play a crucial role in the local ecosystem. The wetlands act as natural filters, improving water quality by trapping sediments and absorbing nutrients before they enter the lake. This area has been a focus of conservation efforts with recent restoration projects aiming to enhance the habitat for threatened bird species.",
+      gisData: [
+        "Coordinates: 37°24'S, 175°12'E",
+        "Elevation: 8m above sea level",
+        "Area: 3.5 km²",
+        "Soil type: Peat and alluvial silts",
+        "Average rainfall: 1,200mm annually"
+      ],
+      photos: [
+        "/img/img1.jpg",
+        "/img/img2.jpg",
+        "/img/img3.jpg",
+        "/img/img4.jpg"
+      ]
+    },
+    point2: {
+      title: "Eastern Bay",
+      description: "Eastern Bay features a unique combination of shallow waters and protected coves. This area is particularly important for fish spawning and offers excellent opportunities for bird watching. Local conservation groups conduct regular monitoring of water quality and biodiversity in this section of the lake.",
+      gisData: [
+        "Coordinates: 37°26'S, 175°14'E",
+        "Water depth: 1.5-3m",
+        "Shoreline length: 2.7km",
+        "Vegetation coverage: 35% emergent plants",
+        "Water pH: 7.2-7.8"
+      ],
+      photos: [
+        "/img/img1.jpg",
+        "/img/img2.jpg",
+        "/img/img3.jpg",
+        "/img/img4.jpg"
+      ]
+    },
+    point3: {
+      title: "Southern Creek",
+      description: "Southern Creek is the primary tributary flowing into Lake Waikare from the surrounding highlands. This waterway has historical significance as it was once used by early settlers for transportation. The creek's catchment area has been the focus of reforestation efforts to reduce erosion and improve water quality entering the lake system.",
+      gisData: [
+        "Coordinates: 37°29'S, 175°11'E",
+        "Stream length: 8.3km",
+        "Catchment area: 42km²",
+        "Average flow rate: 0.8m³/s",
+        "Native vegetation cover: 65%"
+      ],
+      photos: [
+        "/img/img1.jpg",
+        "/img/img2.jpg",
+        "/img/img3.jpg",
+        "/img/img4.jpg"
+      ]
+    },
+    point4: {
+      title: "Conservation Island",
+      description: "This small island within Lake Waikare serves as a protected breeding ground for several bird species. The island was formed naturally through lake level changes over centuries and now features dense native vegetation. Access to the island is restricted during breeding seasons to minimize disturbance to wildlife.",
+      gisData: [
+        "Coordinates: 37°25'S, 175°15'E",
+        "Area: 0.8km²",
+        "Highest point: 14m above lake level",
+        "Vegetation: 90% native species",
+        "Bird species: 23 recorded nesting species"
+      ],
+      photos: [
+        "/img/img1.jpg",
+        "/img/img2.jpg",
+        "/img/img3.jpg",
+        "/img/img4.jpg"
+      ]
+    }
+  };
+
+  // interactive elements
+  document.addEventListener('DOMContentLoaded', function() {
+    const mapPoints = document.querySelectorAll('.map-point');
+    const locationInfo = document.querySelector('.location-info');
+    const closeInfoBtn = document.querySelector('.close-info');
+    const nextBtn = document.querySelector('.next-btn');
+    const modalOverlay = document.querySelector('.modal-overlay');
+    const skipBtn = document.querySelector('.skip-btn');
+    const submitBtn = document.querySelector('.submit-btn');
+    const quizOptions = document.querySelectorAll('.quiz-option');
+
+    let currentPoint = null;
+    let slideInterval = null;
+    let currentSlideIndex = 0;
+
+    // point click event
+    mapPoints.forEach(point => {
+      point.addEventListener('click', function() {
+        const pointId = this.getAttribute('data-id');
+        currentPoint = pointId;
+
+        displayLocationInfo(pointId);
+        locationInfo.style.display = 'flex';
+      });
+    });
+
+    // close info button
+    closeInfoBtn.addEventListener('click', function() {
+      locationInfo.style.display = 'none';
+      stopCarousel();
+    });
+
+    // next button (open quiz modal)
+    nextBtn.addEventListener('click', function() {
+      modalOverlay.style.display = 'flex';
+    });
+
+    // quiz option (skip or answer)
+    quizOptions.forEach(option => {
+      option.addEventListener('click', function() {
+        quizOptions.forEach(opt => opt.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+    });
+
+    skipBtn.addEventListener('click', function() {
+      modalOverlay.style.display = 'none';
+      locationInfo.style.display = 'none';
+      stopCarousel();
+    });
+
+    submitBtn.addEventListener('click', function() {
+      modalOverlay.style.display = 'none';
+      locationInfo.style.display = 'none';
+      stopCarousel();
+      // we can add an integral system
+      // to judge whether the answer is correct and accumulate the integral
+      // but for the demo, we just close the modal
+    });
+
+    // Carousel functions
+    function setupCarousel(photos) {
+      const carouselSlides = document.querySelector('.carousel-slides');
+      const carouselIndicators = document.querySelector('.carousel-indicators');
+
+      carouselSlides.innerHTML = '';
+      carouselIndicators.innerHTML = '';
+
+      // add images to carousel
+      photos.forEach((photo, index) => {
+        const img = document.createElement('img');
+        img.src = photo;
+        img.alt = 'Location photo';
+        img.className = index === 0 ? 'active' : '';
+
+        carouselSlides.appendChild(img);
+
+        const indicator = document.createElement('div');
+        indicator.className = 'carousel-indicator' + (index === 0 ? ' active' : '');
+        indicator.dataset.slide = index;
+
+        indicator.addEventListener('click', function() {
+          goToSlide(parseInt(this.dataset.slide));
+        });
+
+        carouselIndicators.appendChild(indicator);
+      });
+
+      // Add mouse hover events to pause/resume carousel
+      carouselSlides.addEventListener('mouseenter', function() {
+        stopCarousel();
+      });
+
+      carouselSlides.addEventListener('mouseleave', function() {
+        startCarousel();
+      });
+
+      currentSlideIndex = 0;
+      startCarousel();
+    }
+
+    function startCarousel() {
+      stopCarousel();
+      slideInterval = setInterval(nextSlide, 5000);
+    }
+
+    function stopCarousel() {
+      if (slideInterval) {
+        clearInterval(slideInterval);
+        slideInterval = null;
+      }
+    }
+
+    function nextSlide() {
+      const slides = document.querySelectorAll('.carousel-slides img');
+      const indicators = document.querySelectorAll('.carousel-indicator');
+
+      if (slides.length === 0) return;
+
+      slides[currentSlideIndex].classList.remove('active');
+      indicators[currentSlideIndex].classList.remove('active');
+
+      currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+
+      slides[currentSlideIndex].classList.add('active');
+      indicators[currentSlideIndex].classList.add('active');
+    }
+
+    function goToSlide(index) {
+      const slides = document.querySelectorAll('.carousel-slides img');
+      const indicators = document.querySelectorAll('.carousel-indicator');
+
+      if (index < 0 || index >= slides.length || index === currentSlideIndex) return;
+
+      slides[currentSlideIndex].classList.remove('active');
+      indicators[currentSlideIndex].classList.remove('active');
+
+      currentSlideIndex = index;
+
+      slides[currentSlideIndex].classList.add('active');
+      indicators[currentSlideIndex].classList.add('active');
+
+      if (slideInterval) {
+        startCarousel();
+      }
+    }
+
+    // display location information
+    function displayLocationInfo(pointId) {
+      const data = pointData[pointId];
+      if (!data) return;
+
+      document.querySelector('.location-title').textContent = data.title;
+      document.querySelector('.location-description').textContent = data.description;
+
+      // GIS data
+      const gisDataContainer = document.querySelector('.gis-data');
+      gisDataContainer.innerHTML = '';
+      data.gisData.forEach(item => {
+        const p = document.createElement('p');
+        p.textContent = item;
+        gisDataContainer.appendChild(p);
+      });
+
+      setupCarousel(data.photos);
+    }
+  });
+</script>
+</body>
+</html>
